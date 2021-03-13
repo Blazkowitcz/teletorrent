@@ -9,7 +9,7 @@ var tracker_list = [];
 /**
  * Init bot
  */
-function start() {
+function init() {
     bot = new TelegramBot(token, {polling: true});
     bot.onText(/\/start/, (msg) => {
         bot.sendMessage(msg.chat.id, "Greeting " + msg.chat.username);
@@ -37,8 +37,15 @@ function setTrackerCommands(bot){
         }
     })
     bot.onText(/\/tracker list/, (msg, info) => {
-        console.log(tracker_list);
+        Tracker.list(function (err, data) {
+            if (err){
+                return null;
+            }
+            data.forEach(tracker => {
+                bot.sendMessage(msg.chat.id, tracker.name + " (" + tracker.address + ")");
+            });
+        });
     })
 }
 
-module.exports = { start }
+module.exports = { init }

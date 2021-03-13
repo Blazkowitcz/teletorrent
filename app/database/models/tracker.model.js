@@ -24,6 +24,19 @@ Tracker.create = function create(tracker, callback) {
     });
 }
 
+Tracker.list = function list(callback) {
+    var db = require('../../database');
+    var results = [];
+    db.all("SELECT * FROM trackers", (err, rows) => {
+        if(rows !== null && typeof rows !== "undefined"){
+            rows.forEach((row) => {
+                results.push(row);
+            })
+        }
+        callback(null, results);
+    })
+}
+
 /** Database table generator */
 Tracker.Generate = "CREATE TABLE IF NOT EXISTS trackers (ID INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, rss_address TEXT, passkey INTEGER)";
 
