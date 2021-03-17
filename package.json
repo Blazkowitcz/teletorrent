@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Blazkowitcz/teletorrent#readme",
   "dependencies": {
     "fs": "^0.0.1-security",
+    "node-fetch": "^2.6.1",
     "node-telegram-bot-api": "^0.51.0",
     "sqlite3": "^5.0.2"
   }
